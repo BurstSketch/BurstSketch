@@ -142,6 +142,7 @@ class Log // Stage 2
 	uint64_t** id;
 	uint32_t** timestamp;
 	vector<Burst> Record;
+	vector<pair<uint64_t, uint32_t> > V;
 	Log(){};
 	Log(int _size,int _m, int _screen_layer_threshold)
 	{
@@ -174,6 +175,7 @@ class Log // Stage 2
 	void update(uint32_t time)
 	{
 		// clear
+		V.clear();
 		for(int i = 0; i < size; i++)
 			for(int j = 0; j < bucket_size; j++)
 			{
@@ -208,7 +210,8 @@ class Log // Stage 2
 					timestamp[i][j] = -1;
 				else if(counter[flag][i][j] >= 2 * counter[flag ^ 1][i][j] && counter[flag][i][j] >= m)
 					timestamp[i][j] = time;
-				
+				if(counter[flag][i][j] >= m)
+					V.push_back(make_pair(id[i][j], counter[flag][i][j])); // output high-speed item
 			}
 		flag ^= 1;
 		for(int i = 0; i < size; i++)
