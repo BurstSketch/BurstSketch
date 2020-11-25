@@ -8,6 +8,7 @@
 #define oo 1000000000
 #define window_num 10
 #define threshold 50 // the burst thresold
+#define lambda 2 
 
-ifstream fin("../formatted00.dat", ios::binary); // the CAIDA path
+ifstream fin("../130000.dat", ios::binary); // the CAIDA path
 #endif

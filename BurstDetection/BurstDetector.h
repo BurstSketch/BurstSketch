@@ -198,7 +198,7 @@ class Log // Stage 2
 			{
 				if(id[i][j] == 0)
 					continue;
-				if(counter[flag][i][j] <= counter[flag ^ 1][i][j] / 2 && timestamp[i][j] != -1)
+				if(counter[flag][i][j] <= counter[flag ^ 1][i][j] / lambda && timestamp[i][j] != -1)
 				{
 					//output burst
 					Record.push_back(Burst(timestamp[i][j], time, id[i][j]));
@@ -206,7 +206,7 @@ class Log // Stage 2
 				}
 				else if(counter[flag][i][j] < m)
 					timestamp[i][j] = -1;
-				else if(counter[flag][i][j] >= 2 * counter[flag ^ 1][i][j] && counter[flag][i][j] >= m)
+				else if(counter[flag][i][j] >= lambda * counter[flag ^ 1][i][j] && counter[flag][i][j] >= m)
 					timestamp[i][j] = time;
 				
 			}
@@ -264,6 +264,7 @@ class Log // Stage 2
 			id[z][l] = flow_id;
 			timestamp[z][l] = -1;
 			counter[flag][z][l] = flow_count; // evict a flow!
+			counter[flag ^ 1][z][l] = 0;
 			return true;
 		}
 		if(flow_count > counter[flag][z][l])
@@ -271,6 +272,7 @@ class Log // Stage 2
 			id[z][l] = flow_id;
 			timestamp[z][l] = -1;
 			counter[flag][z][l] = flow_count; // evict a flow!
+			counter[flag ^ 1][z][l] = 0;
 			return true;
 		}
 		return false;

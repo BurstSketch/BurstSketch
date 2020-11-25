@@ -267,6 +267,7 @@ class Log // Stage 2
 			id[z][l] = flow_id;
 			timestamp[z][l] = -1;
 			counter[flag][z][l] = flow_count; // evict a flow!
+			counter[flag ^ 1][z][l] = 0;
 			return true;
 		}
 		if(flow_count > counter[flag][z][l])
@@ -274,6 +275,7 @@ class Log // Stage 2
 			id[z][l] = flow_id;
 			timestamp[z][l] = -1;
 			counter[flag][z][l] = flow_count; // evict a flow!
+			counter[flag ^ 1][z][l] = 0;
 			return true;
 		}
 		return false;
